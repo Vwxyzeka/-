@@ -215,14 +215,14 @@
     </button>
 
     <header>
-        <div class="container mx-auto px-4 flex justify-between items-center">
-            <div class="w-1/3"></div>
-            <div class="w-1/3 text-center">
-                <h1 class="text-3xl md:text-4xl font-black title-gradient tracking-tight" data-lang="mainTitle">
+        <div class="container mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0">
+            <div class="w-full sm:w-1/3 order-2 sm:order-1"></div>
+            <div class="w-full sm:w-1/3 text-center order-1 sm:order-2">
+                <h1 class="text-2xl sm:text-3xl md:text-4xl font-black title-gradient tracking-tight" data-lang="mainTitle">
                     August Slimdown Challenge 2025
                 </h1>
             </div>
-            <div class="w-1/3 flex justify-end items-center gap-3">
+            <div class="w-full sm:w-1/3 flex justify-center sm:justify-end items-center gap-3 order-3">
                 <img src="https://flagcdn.com/id.svg" width="30" class="lang-flag rounded-sm" id="lang-id" alt="Bahasa Indonesia">
                 <img src="https://flagcdn.com/gb.svg" width="30" class="lang-flag rounded-sm" id="lang-en" alt="English">
             </div>
@@ -410,7 +410,7 @@
                 notifErrorGeneric: "Terjadi kesalahan.",
                 notifErrorPassword: "Password admin salah.",
                 notifErrorUnlock: "Kunci yang dimasukkan salah.",
-                notifErrorFillAll: "Mohon lengkapi semua data.",
+                notifErrorFillAll: "Mohon lengkapi nama, perusahaan, gender, dan berat awal.",
                 notifErrorInvalidWeight: "Mohon masukkan angka yang valid.",
                 notifErrorAI: "Maaf, terjadi kesalahan saat menghubungi AI.",
                 notifErrorAIConnect: "Maaf, tidak dapat terhubung ke layanan AI saat ini.",
@@ -461,7 +461,7 @@
                 notifErrorGeneric: "An error occurred.",
                 notifErrorPassword: "Incorrect admin password.",
                 notifErrorUnlock: "Incorrect key entered.",
-                notifErrorFillAll: "Please complete all fields.",
+                notifErrorFillAll: "Please complete name, company, gender, and start weight.",
                 notifErrorInvalidWeight: "Please enter a valid number.",
                 notifErrorAI: "Sorry, an error occurred while contacting the AI.",
                 notifErrorAIConnect: "Sorry, cannot connect to the AI service right now.",
@@ -818,7 +818,10 @@
                 try {
                     if (initialAuthToken) await signInWithCustomToken(auth, initialAuthToken);
                     else await signInAnonymously(auth);
-                } catch (error) { showNotification('notifErrorGeneric', 'error'); }
+                } catch (error) { 
+                    // Do not show error on initial load, as it might be a temporary connection issue.
+                    console.error("Authentication failed:", error);
+                }
             }
         });
     </script>
